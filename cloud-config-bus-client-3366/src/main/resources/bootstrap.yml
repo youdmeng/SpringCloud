@@ -1,0 +1,33 @@
+server:
+  port: 3366
+
+spring:
+  application:
+    name: cloud-condig-client
+  cloud:
+    config:
+      label: master  # 分支
+      name: config # 配置文件名称
+      profile: dev   # 版本
+      uri: http://127.0.0.1:3344
+  rabbitmq:
+    host: 192.168.10.58
+    port: 5672
+    username: ytooo
+    password: ytooo
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: cloud-config-bus-client-3366
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/ #,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+
+# 配置暴露端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

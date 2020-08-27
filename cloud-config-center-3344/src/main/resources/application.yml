@@ -1,0 +1,39 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: cloud-config-center
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/youdmeng/cloud-config
+          search-paths:
+            - cloud-config
+      label: master
+  # 配置消息队列
+  rabbitmq:
+    host: 192.168.10.58
+    port: 5672
+    username: ytooo
+    password: ytooo
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: cloud-config-center-3344
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/ #,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+
+
+
+# 配置bus暴露端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"

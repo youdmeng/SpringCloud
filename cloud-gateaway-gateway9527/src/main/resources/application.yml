@@ -1,0 +1,35 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateaway-gateaway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: payment_get
+#          uri: http://127.0.0.1:8001
+          uri : lb://CLOUD-PAYMENT-SERVICE  #启用 注册中心集群
+          predicates:
+            - Path=/payment/get/**
+        - id: baidu
+          uri: http://news.baidu.com/guonei
+          predicates:
+            - Path=/guonei
+            - Cookie=name,ytooo
+
+
+
+eureka:
+  instance:
+    instance-id: cloud-gateaway-gateaway9527
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/ #,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+
